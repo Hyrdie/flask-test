@@ -25,7 +25,7 @@ def get_by_id(session,id):
     select_user = session.execute(sql)
     return select_user
 
-def update(session, id, data:User):
+def update(session, id, data:User, updated_at):
     sql = sa.update(
         Users
     ).where(
@@ -34,7 +34,8 @@ def update(session, id, data:User):
         email=data.email,
         first_name=data.first_name,
         last_name=data.last_name,
-        avatar=data.avatar
+        avatar=data.avatar,
+        updated_at=updated_at
     )
     update_user = session.execute(sql)
     session.commit()

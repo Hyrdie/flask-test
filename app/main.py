@@ -8,6 +8,7 @@ from schema.user import User, UserResponse
 import requests
 from pydantic import ValidationError
 from settings import settings
+import time
 
 app = Flask("AKASIA Test")
 
@@ -95,7 +96,8 @@ def update_user(id):
                 last_name=data.get('last_name', get_user.last_name),
                 avatar=data.get('avatar', get_user.avatar)
             )
-            update(session, id, user)
+            time_now = time.strftime('%Y-%m-%d %H:%M:%S')
+            update(session, id, user, time_now)
         return {"data":dict(user)}
     except ValidationError as e:
         return e.errors(), 400
